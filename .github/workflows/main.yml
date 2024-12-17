@@ -65,7 +65,8 @@ jobs:
 
       # Step 9: Run Snyk Open Source Scan and Diff
       - name: Run Snyk Delta Scan
-        run:  /bin/bash snyk_delta_all_projects.sh --org=${{ vars.SNYK_ORG  }} --remote-repo-url=${{ github.repository }} 
+        run: snyk test --json --print-deps | snyk-delta --baselineOrg ${{ vars.SNYK_ORG  }} --baselineProject 120ba564-7451-4ed8-b76a-d218a6689c76 --setPassIfNoBaseline true
+# /bin/bash snyk_delta_all_projects.sh --org=${{ vars.SNYK_ORG  }} --remote-repo-url=${{ github.repository }} 
 
       - name: Run Snyk Monitor Scan
         run: snyk monitor --all-projects --org=${{ vars.SNYK_ORG  }} --remote-repo-url=${{ github.repository }}
